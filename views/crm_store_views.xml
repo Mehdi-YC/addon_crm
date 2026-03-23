@@ -1,0 +1,88 @@
+<odoo>
+
+    <!-- LIST VIEW -->
+    <record id="view_crm_store_tree" model="ir.ui.view">
+        <field name="name">crm.store.tree</field>
+        <field name="model">crm.store</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="store_id"/>
+                <field name="name"/>
+                <field name="phone"/>
+                <field name="is_official"/>
+                <field name="accepted"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- FORM VIEW -->
+    <record id="view_crm_store_form" model="ir.ui.view">
+        <field name="name">crm.store.form</field>
+        <field name="model">crm.store</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_generate_random"
+                            type="object"
+                            string="Generate Random"
+                            class="btn-primary"/>
+                </header>
+
+                <sheet>
+                    <group string="Main">
+                        <field name="store_id"/>
+                        <field name="slug"/>
+                        <field name="name"/>
+                        <field name="is_official"/>
+                        <field name="announcement_id"/>
+                        <field name="website"/>
+                        <field name="phone"/>
+                        <field name="image_url"/>
+                    </group>
+
+                    <group string="Messaging">
+                        <field name="has_whatsapp"/>
+                        <field name="has_viber"/>
+                        <field name="has_telegram"/>
+                    </group>
+
+                    <notebook>
+
+                        <page string="Call 1">
+                            <field name="call1_answered"/>
+                            <field name="call1_date"/>
+                            <field name="call1_observation"/>
+                        </page>
+
+                        <page string="Call 2">
+                            <field name="call2_answered"/>
+                            <field name="call2_date"/>
+                            <field name="call2_observation"/>
+                        </page>
+
+                        <page string="Call 3">
+                            <field name="call3_answered"/>
+                            <field name="call3_date"/>
+                            <field name="call3_observation"/>
+                        </page>
+
+                        <page string="Final">
+                            <field name="accepted"/>
+                            <field name="mail_sent"/>
+                            <field name="final_observation"/>
+                        </page>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_crm_store" model="ir.actions.act_window">
+        <field name="name">Store CRM</field>
+        <field name="res_model">crm.store</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
