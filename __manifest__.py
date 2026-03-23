@@ -6,6 +6,7 @@
     "category": "CRM",
     "description": "Custom Store CRM",
     "data": [
+        "security/security.xml",
         "security/ir.model.access.csv",
         "views/crm_store_menu.xml",
         "views/crm_store_views.xml",
