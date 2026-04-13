@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="oe_button_box" name="button_box">
-                        <button name="%(action_crm_call_log)d" type="action" class="oe_stat_button" icon="fa-phone">
+                        <button name="action_log_call" type="object" class="oe_stat_button" icon="fa-phone">
                             <span>Log Call</span>
                         </button>
                         <button name="action_mark_accepted" type="object" class="oe_stat_button" icon="fa-check" invisible="accepted">
