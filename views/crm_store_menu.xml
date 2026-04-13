@@ -14,32 +14,5 @@
                   action="action_crm_store"
                   sequence="10"/>
 
-        <!-- Import Menu -->
-        <menuitem id="crm_store_import_menu"
-                  name="Import Stores"
-                  parent="crm_store_root"
-                  action="action_crm_bulk_import"
-                  sequence="20"/>
-
-        <!-- Reporting Menu -->
-        <menuitem id="crm_store_reporting_menu"
-                  name="Reports"
-                  parent="crm_store_root"
-                  sequence="30"/>
-
-        <!-- Report: Acceptance Status -->
-        <menuitem id="crm_store_report_acceptance"
-                  name="Acceptance Status"
-                  parent="crm_store_reporting_menu"
-                  action="action_report_acceptance"
-                  sequence="10"/>
-
-        <!-- Report: Call Statistics -->
-        <menuitem id="crm_store_report_calls"
-                  name="Call Statistics"
-                  parent="crm_store_reporting_menu"
-                  action="action_report_calls"
-                  sequence="20"/>
-
     </data>
 </odoo>
