@@ -112,19 +112,25 @@
         <field name="arch" type="xml">
             <kanban default_group_by="accepted">
                 <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_card">
-                            <div class="oe_kanban_content">
-                                <h4><a type="open"><field name="name"/></a></h4>
-                                <p><strong>ID:</strong> <field name="store_id"/></p>
-                                <p><strong>Phone:</strong> <field name="phone"/></p>
-                                <p><strong>Official:</strong> <field name="is_official" widget="boolean"/></p>
-                                <p><strong>Calls Logged:</strong>
-                                    <field name="call1_answered" widget="boolean"/>
-                                    <field name="call2_answered" widget="boolean"/>
-                                    <field name="call3_answered" widget="boolean"/>
-                                </p>
-                            </div>
+                    <t t-name="card">
+                        <field name="name" class="fw-bold fs-5"/>
+                        <div>
+                            <span class="text-muted">ID: </span>
+                            <field name="store_id"/>
+                        </div>
+                        <div>
+                            <span class="text-muted">Phone: </span>
+                            <field name="phone"/>
+                        </div>
+                        <div>
+                            <span class="text-muted">Official: </span>
+                            <field name="is_official" widget="boolean"/>
+                        </div>
+                        <div>
+                            <span class="text-muted">Calls: </span>
+                            <field name="call1_answered" widget="boolean"/>
+                            <field name="call2_answered" widget="boolean"/>
+                            <field name="call3_answered" widget="boolean"/>
                         </div>
                     </t>
                 </templates>
