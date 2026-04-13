@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- EXPORT STORES ACTION -->
+    <record id="action_export_stores" model="ir.actions.server">
+        <field name="name">Export to CSV</field>
+        <field name="model_id" ref="model_crm_store"/>
+        <field name="state">code</field>
+        <field name="code">
+action = env['crm_store'].export_to_csv()
+        </field>
+    </record>
+
+    <!-- MARK ACCEPTED ACTION -->
+    <record id="action_mark_accepted" model="ir.actions.server">
+        <field name="name">Mark as Accepted</field>
+        <field name="model_id" ref="model_crm_store"/>
+        <field name="state">code</field>
+        <field name="code">
+for record in records:
+    record.accepted = True
+        </field>
+    </record>
+
+    <!-- MARK REJECTED ACTION -->
+    <record id="action_mark_rejected" model="ir.actions.server">
+        <field name="name">Mark as Rejected</field>
+        <field name="model_id" ref="model_crm_store"/>
+        <field name="state">code</field>
+        <field name="code">
+for record in records:
+    record.accepted = False
+        </field>
+    </record>
+
+</odoo>

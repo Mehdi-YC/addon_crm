@@ -111,7 +111,7 @@ Each call includes:
 * Model: `crm.store`
 * Views:
 
-  * Tree (list)
+  * list (list)
   * Form (notebook with sections)
 * Server Method:
 

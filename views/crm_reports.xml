@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ACCEPTANCE STATUS REPORT ACTION -->
+    <record id="action_report_acceptance" model="ir.actions.act_window">
+        <field name="name">Acceptance Status Report</field>
+        <field name="res_model">crm.store.report.acceptance</field>
+        <field name="view_mode">pivot,chart</field>
+        <field name="context">{'pivot_measures': ['__count']}</field>
+    </record>
+
+    <!-- CALL STATISTICS REPORT ACTION -->
+    <record id="action_report_calls" model="ir.actions.act_window">
+        <field name="name">Call Statistics Report</field>
+        <field name="res_model">crm.store.report.calls</field>
+        <field name="view_mode">pivot,chart</field>
+        <field name="context">{'pivot_measures': ['__count']}</field>
+    </record>
+
+</odoo>

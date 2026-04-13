@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- CALL LOG WIZARD VIEW -->
+    <record id="view_crm_call_log_wizard_form" model="ir.ui.view">
+        <field name="name">crm.call.log.wizard.form</field>
+        <field name="model">crm.call.log.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="store_id" readonly="1"/>
+                    <field name="call_number"/>
+                    <field name="answered" widget="boolean"/>
+                    <field name="call_date"/>
+                    <field name="observation" placeholder="Enter call notes..."/>
+                </group>
+                <footer>
+                    <button name="action_log_call" type="object" string="Save Call" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- CALL LOG WIZARD ACTION -->
+    <record id="action_crm_call_log" model="ir.actions.act_window">
+        <field name="name">Log Call</field>
+        <field name="res_model">crm.call.log.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_store_id': active_id}</field>
+    </record>
+
+    <!-- SEND MAIL WIZARD VIEW -->
+    <record id="view_crm_send_mail_wizard_form" model="ir.ui.view">
+        <field name="name">crm.send.mail.wizard.form</field>
+        <field name="model">crm.send.mail.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="store_id" readonly="1"/>
+                    <field name="email_to" required="1"/>
+                    <field name="subject" placeholder="Email subject..."/>
+                    <field name="body" widget="html" nolabel="1" colspan="2"/>
+                </group>
+                <footer>
+                    <button name="action_send_mail" type="object" string="Send Mail" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- SEND MAIL WIZARD ACTION -->
+    <record id="action_crm_send_mail" model="ir.actions.act_window">
+        <field name="name">Send Mail</field>
+        <field name="res_model">crm.send.mail.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="context">{'default_store_id': active_id}</field>
+    </record>
+
+    <!-- BULK IMPORT WIZARD VIEW -->
+    <record id="view_crm_bulk_import_wizard_form" model="ir.ui.view">
+        <field name="name">crm.bulk.import.wizard.form</field>
+        <field name="model">crm.bulk.import.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="import_type"/>
+                    <field name="import_file" required="1"/>
+                    <field name="file_name"/>
+                    <field name="skip_errors" widget="boolean"/>
+                </group>
+                <div class="alert alert-info" role="alert">
+                    <p>CSV file should include columns: store_id, name, slug, is_official, announcement_id, website, phone, image_url, has_whatsapp, has_viber, has_telegram</p>
+                </div>
+                <footer>
+                    <button name="action_import" type="object" string="Import" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- BULK IMPORT WIZARD ACTION -->
+    <record id="action_crm_bulk_import" model="ir.actions.act_window">
+        <field name="name">Bulk Import Stores</field>
+        <field name="res_model">crm.bulk.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

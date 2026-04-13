@@ -1,9 +1,13 @@
-from odoo import models, fields
+from odoo import models, fields, api
 import random
 from datetime import date, timedelta
+import base64
+import csv
+import io
+
 
 class CrmStore(models.Model):
-    _name = "crm.store"
+    _name = "crm_store"
     _description = "Store CRM"
 
     # MAIN
@@ -72,3 +76,81 @@ class CrmStore(models.Model):
                 "mail_sent": random.choice([True, False]),
                 "final_observation": "Final decision",
             })
+
+    def action_log_call(self):
+        """Open wizard to log a call"""
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Log Call',
+            'res_model': 'crm.call.log.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_store_id': self.id},
+        }
+
+    def action_send_mail(self):
+        """Open wizard to send mail"""
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Send Mail',
+            'res_model': 'crm.send.mail.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_store_id': self.id},
+        }
+
+    def action_mark_accepted(self):
+        """Mark store as accepted"""
+        self.accepted = True
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Success',
+                'message': f'{self.name} marked as accepted',
+                'type': 'success',
+                'sticky': False,
+            }
+        }
+
+    def action_mark_rejected(self):
+        """Mark store as rejected"""
+        self.accepted = False
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': 'Success',
+                'message': f'{self.name} marked as rejected',
+                'type': 'warning',
+                'sticky': False,
+            }
+        }
+
+    def export_to_csv(self):
+        """Export selected stores to CSV"""
+        stores = self.search([])
+        output = io.StringIO()
+        writer = csv.DictWriter(output, fieldnames=[
+            'store_id', 'name', 'slug', 'is_official', 'announcement_id',
+            'website', 'phone', 'image_url', 'has_whatsapp', 'has_viber',
+            'has_telegram', 'accepted', 'mail_sent'
+        ])
+        writer.writeheader()
+        for store in stores:
+            writer.writerow({
+                'store_id': store.store_id,
+                'name': store.name,
+                'slug': store.slug,
+                'is_official': store.is_official,
+                'announcement_id': store.announcement_id,
+                'website': store.website,
+                'phone': store.phone,
+                'image_url': store.image_url,
+                'has_whatsapp': store.has_whatsapp,
+                'has_viber': store.has_viber,
+                'has_telegram': store.has_telegram,
+                'accepted': store.accepted,
+                'mail_sent': store.mail_sent,
+            })
+        return output.getvalue()
