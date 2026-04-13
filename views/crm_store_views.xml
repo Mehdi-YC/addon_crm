@@ -151,12 +151,10 @@
                 <filter name="filter_call2" string="Call 2 Answered" domain="[('call2_answered', '=', True)]"/>
                 <filter name="filter_call3" string="Call 3 Answered" domain="[('call3_answered', '=', True)]"/>
                 <separator/>
-                <group expand="1" string="Group By">
-                    <filter name="group_by_official" string="Official Status" context="{'group_by': 'is_official'}"/>
-                    <filter name="group_by_accepted" string="Acceptance" context="{'group_by': 'accepted'}"/>
-                    <filter name="group_by_mail_sent" string="Mail Sent" context="{'group_by': 'mail_sent'}"/>
-                    <filter name="group_by_call1_date" string="Call 1 Date" context="{'group_by': 'call1_date'}"/>
-                </group>
+                <filter name="group_by_official" string="Official Status" context="{'group_by': 'is_official'}"/>
+                <filter name="group_by_accepted" string="Acceptance" context="{'group_by': 'accepted'}"/>
+                <filter name="group_by_mail_sent" string="Mail Sent" context="{'group_by': 'mail_sent'}"/>
+                <filter name="group_by_call1_date" string="Call 1 Date" context="{'group_by': 'call1_date'}"/>
             </search>
         </field>
     </record>
