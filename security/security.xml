@@ -3,13 +3,13 @@
     <!-- CRM Store User Group -->
     <record id="group_crm_store_user" model="ir.group">
         <field name="name">Store CRM User</field>
-        <field name="category_id" ref="base.category_base_group_user"/>
+        <field name="category_id" ref="base.module_category_crm"/>
     </record>
 
     <!-- CRM Store Admin Group -->
     <record id="group_crm_store_admin" model="ir.group">
         <field name="name">Store CRM Admin</field>
-        <field name="category_id" ref="base.category_base_group_system"/>
+        <field name="category_id" ref="base.module_category_crm"/>
     </record>
 
     <!-- Access for Store CRM User -->
