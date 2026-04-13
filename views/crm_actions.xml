@@ -5,9 +5,10 @@
     <record id="action_export_stores" model="ir.actions.server">
         <field name="name">Export to CSV</field>
         <field name="model_id" ref="model_crm_store"/>
+        <field name="binding_model_id" ref="model_crm_store"/>
         <field name="state">code</field>
         <field name="code">
-action = env['crm_store'].export_to_csv()
+action = env['crm_store'].browse(env.context.get('active_ids', [])).export_to_csv()
         </field>
     </record>
 
@@ -15,10 +16,10 @@ action = env['crm_store'].export_to_csv()
     <record id="action_mark_accepted" model="ir.actions.server">
         <field name="name">Mark as Accepted</field>
         <field name="model_id" ref="model_crm_store"/>
+        <field name="binding_model_id" ref="model_crm_store"/>
         <field name="state">code</field>
         <field name="code">
-for record in records:
-    record.accepted = True
+records.write({'accepted': True})
         </field>
     </record>
 
@@ -26,10 +27,10 @@ for record in records:
     <record id="action_mark_rejected" model="ir.actions.server">
         <field name="name">Mark as Rejected</field>
         <field name="model_id" ref="model_crm_store"/>
+        <field name="binding_model_id" ref="model_crm_store"/>
         <field name="state">code</field>
         <field name="code">
-for record in records:
-    record.accepted = False
+records.write({'accepted': False})
         </field>
     </record>
 
