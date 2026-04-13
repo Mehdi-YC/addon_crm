@@ -138,7 +138,8 @@
         <field name="model">crm_store</field>
         <field name="arch" type="xml">
             <search>
-                <field name="store_id" string="Store ID or Name" filter_domain="['|', ('store_id', 'ilike', self), ('name', 'ilike', self)]"/>
+                <field name="store_id" string="Store ID"/>
+                <field name="name" string="Store Name"/>
                 <field name="phone"/>
                 <field name="website"/>
                 <separator/>
