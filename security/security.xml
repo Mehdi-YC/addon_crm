@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- CRM Store User Group -->
+    <!-- CRM Store User Group
     <record id="group_crm_store_user" model="ir.group">
         <field name="name">Store CRM User</field>
         <field name="category_id" ref="base.module_category_crm"/>
-    </record>
+    </record> -->
 
     <!-- CRM Store Admin Group -->
     <record id="group_crm_store_admin" model="ir.group">
