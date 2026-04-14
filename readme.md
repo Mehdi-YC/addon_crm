@@ -1,53 +1,35 @@
-# 📞 CRM Store (Odoo 19 Module)
+# Store CRM
 
-A custom CRM module for managing store leads, tracking call attempts, and handling final conversion status.
+A simple CRM module for managing store contacts and follow-ups in Odoo 19.
 
----
+## Features
 
-## 🚀 Features
+- Store contact management
+- Call logging (up to 3 calls per store)
+- Email communication tracking
+- Acceptance status tracking
+- Communication channel preferences (WhatsApp, Viber, Telegram)
 
-* 🏪 Store management (ID, name, slug, website, phone)
-* 📢 Announcement tracking
-* 💬 Messaging availability (WhatsApp, Viber, Telegram)
-* ☎️ Multi-step call tracking (3 call attempts)
-* 📝 Observations per call
-* 🏁 Final decision tracking (Accepted / Mail Sent)
-* ⚡ One-click **random data generator**
-* 📋 List view + detailed form view
+## Installation
 
----
+1. Place the `addon_crm` folder in your Odoo addons directory
+2. Update your Odoo configuration to include the addons path
+3. Install the module from the Odoo Apps menu
 
-## 📦 Installation
+## Usage
 
-1. Copy the module into your Odoo addons directory:
+1. Navigate to Store CRM in the main menu
+2. Create new store records
+3. Use the "Log Call" button to record call attempts
+4. Use the "Send Mail" button to send emails
+5. Track acceptance status and communication history
 
-```bash
-addons/crm_store
-```
+## Views
 
-2. Restart Odoo:
-
-```bash
-./odoo-bin -u crm_store
-```
-
-3. Activate developer mode (optional but recommended)
-
-4. Go to:
-
-```
-Apps → Search "CRM Store" → Install
-```
-
----
-
-## 🧭 Usage
-
-### Access Module
-
-```
-Store CRM → Stores
-```
+- **List View**: Overview of all stores
+- **Form View**: Detailed store information with call history
+- **Kanban View**: Visual status overview
+- **Search**: Filter by status, official status, etc.
 
 ---
 

@@ -27,78 +27,58 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <button name="action_log_call" type="object" string="Log Call" class="btn-primary" icon="fa-phone"/>
-                    <button name="action_send_mail" type="object" string="Send Mail" class="btn-info" icon="fa-envelope"/>
+                    <button name="action_log_call" type="object" string="Log Call" class="btn-primary"/>
+                    <button name="action_send_mail" type="object" string="Send Mail" class="btn-info"/>
+                    <field name="accepted" widget="statusbar" statusbar_visible="accepted"/>
                 </header>
 
                 <sheet>
                     <div class="oe_title">
-                        <h1><field name="name" class="oe_inline" placeholder="Store Name"/></h1>
+                        <h1><field name="name" placeholder="Store Name"/></h1>
                     </div>
 
-                    <div class="oe_button_box" name="button_box">
-                        <button name="action_log_call" type="object" class="oe_stat_button" icon="fa-phone">
-                            <span>Log Call</span>
-                        </button>
-                        <button name="action_mark_accepted" type="object" class="oe_stat_button" icon="fa-check" invisible="accepted">
-                            <span>Mark Accepted</span>
-                        </button>
-                    </div>
+                    <group>
+                        <group>
+                            <field name="store_id"/>
+                            <field name="slug"/>
+                            <field name="is_official"/>
+                            <field name="announcement_id"/>
+                        </group>
+                        <group>
+                            <field name="website" widget="url"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="image_url"/>
+                        </group>
+                    </group>
 
                     <notebook>
-                        <page string="Main Information">
+                        <page name="communication" string="Communication">
                             <group>
-                                <group string="Store Details">
-                                    <field name="store_id"/>
-                                    <field name="slug"/>
-                                    <field name="is_official" widget="boolean"/>
-                                    <field name="announcement_id"/>
-                                </group>
-                                <group string="Contact Information">
-                                    <field name="website" widget="url"/>
-                                    <field name="phone" widget="phone"/>
-                                    <field name="image_url"/>
-                                </group>
+                                <field name="has_whatsapp"/>
+                                <field name="has_viber"/>
+                                <field name="has_telegram"/>
                             </group>
                         </page>
 
-                        <page string="Communication Channels">
-                            <group>
-                                <group string="Available Channels">
-                                    <field name="has_whatsapp" widget="boolean"/>
-                                    <field name="has_viber" widget="boolean"/>
-                                    <field name="has_telegram" widget="boolean"/>
-                                </group>
-                            </group>
+                        <page name="calls" string="Call History">
+                            <field name="call1_answered"/>
+                            <field name="call1_date"/>
+                            <field name="call1_observation"/>
+                            <field name="call2_answered"/>
+                            <field name="call2_date"/>
+                            <field name="call2_observation"/>
+                            <field name="call3_answered"/>
+                            <field name="call3_date"/>
+                            <field name="call3_observation"/>
                         </page>
 
-                        <page string="Call History">
+                        <page name="final" string="Final Decision">
                             <group>
-                                <group string="Call 1" colspan="2">
-                                    <field name="call1_answered" widget="boolean"/>
-                                    <field name="call1_date"/>
-                                    <field name="call1_observation" widget="text" nolabel="1" colspan="2"/>
-                                </group>
-                                <group string="Call 2" colspan="2">
-                                    <field name="call2_answered" widget="boolean"/>
-                                    <field name="call2_date"/>
-                                    <field name="call2_observation" widget="text" nolabel="1" colspan="2"/>
-                                </group>
-                                <group string="Call 3" colspan="2">
-                                    <field name="call3_answered" widget="boolean"/>
-                                    <field name="call3_date"/>
-                                    <field name="call3_observation" widget="text" nolabel="1" colspan="2"/>
-                                </group>
+                                <field name="mail_sent"/>
+                                <field name="final_observation"/>
                             </group>
                         </page>
-
-                        <page string="Final Decision">
-                            <group>
-                                <field name="accepted" widget="boolean"/>
-                                <field name="mail_sent" widget="boolean"/>
-                                <field name="final_observation" widget="text" nolabel="1" colspan="2"/>
-                            </group>
-                        </page>
+                    </notebook>
                     </notebook>
                 </sheet>
             </form>
@@ -111,26 +91,21 @@
         <field name="model">crm_store</field>
         <field name="arch" type="xml">
             <kanban default_group_by="accepted">
+                <field name="name"/>
+                <field name="store_id"/>
+                <field name="phone"/>
+                <field name="is_official"/>
                 <templates>
                     <t t-name="card">
-                        <field name="name" class="fw-bold fs-5"/>
-                        <div>
-                            <span class="text-muted">ID: </span>
-                            <field name="store_id"/>
+                        <div class="oe_kanban_card_header">
+                            <div class="oe_kanban_card_header_title">
+                                <field name="name"/>
+                            </div>
                         </div>
-                        <div>
-                            <span class="text-muted">Phone: </span>
-                            <field name="phone"/>
-                        </div>
-                        <div>
-                            <span class="text-muted">Official: </span>
-                            <field name="is_official" widget="boolean"/>
-                        </div>
-                        <div>
-                            <span class="text-muted">Calls: </span>
-                            <field name="call1_answered" widget="boolean"/>
-                            <field name="call2_answered" widget="boolean"/>
-                            <field name="call3_answered" widget="boolean"/>
+                        <div class="oe_kanban_card_content">
+                            <div>ID: <field name="store_id"/></div>
+                            <div>Phone: <field name="phone"/></div>
+                            <div>Official: <field name="is_official"/></div>
                         </div>
                     </t>
                 </templates>
@@ -144,23 +119,20 @@
         <field name="model">crm_store</field>
         <field name="arch" type="xml">
             <search>
-                <field name="store_id" string="Store ID"/>
-                <field name="name" string="Store Name"/>
+                <field name="store_id"/>
+                <field name="name"/>
                 <field name="phone"/>
                 <field name="website"/>
                 <separator/>
-                <filter name="filter_official" string="Official Stores" domain="[('is_official', '=', True)]"/>
-                <filter name="filter_accepted" string="Accepted" domain="[('accepted', '=', True)]"/>
-                <filter name="filter_pending" string="Pending" domain="[('accepted', '=', False)]"/>
-                <filter name="filter_mail_sent" string="Mail Sent" domain="[('mail_sent', '=', True)]"/>
-                <filter name="filter_call1" string="Call 1 Answered" domain="[('call1_answered', '=', True)]"/>
-                <filter name="filter_call2" string="Call 2 Answered" domain="[('call2_answered', '=', True)]"/>
-                <filter name="filter_call3" string="Call 3 Answered" domain="[('call3_answered', '=', True)]"/>
+                <filter name="official" string="Official" domain="[('is_official', '=', True)]"/>
+                <filter name="accepted" string="Accepted" domain="[('accepted', '=', True)]"/>
+                <filter name="pending" string="Pending" domain="[('accepted', '=', False)]"/>
+                <filter name="mail_sent" string="Mail Sent" domain="[('mail_sent', '=', True)]"/>
                 <separator/>
-                <filter name="group_by_official" string="Official Status" context="{'group_by': 'is_official'}"/>
-                <filter name="group_by_accepted" string="Acceptance" context="{'group_by': 'accepted'}"/>
-                <filter name="group_by_mail_sent" string="Mail Sent" context="{'group_by': 'mail_sent'}"/>
-                <filter name="group_by_call1_date" string="Call 1 Date" context="{'group_by': 'call1_date'}"/>
+                <group expand="0" string="Group By">
+                    <filter name="group_official" string="Official" context="{'group_by': 'is_official'}"/>
+                    <filter name="group_accepted" string="Accepted" context="{'group_by': 'accepted'}"/>
+                </group>
             </search>
         </field>
     </record>
@@ -171,7 +143,7 @@
         <field name="res_model">crm_store</field>
         <field name="view_mode">kanban,list,form</field>
         <field name="search_view_id" ref="view_crm_store_search"/>
-        <field name="context">{'search_default_filter_pending': 1}</field>
+        <field name="context">{'search_default_pending': 1}</field>
     </record>
 
 </odoo>
