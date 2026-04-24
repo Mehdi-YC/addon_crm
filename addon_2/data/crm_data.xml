@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- noupdate=1: these records are created once and never overwritten on upgrade -->
+    <data noupdate="1">
+
+        <!-- Default categories -->
+        <record id="cat_tech" model="crm.lead.category">
+            <field name="name">Technology</field>
+            <field name="code">tech</field>
+        </record>
+        <record id="cat_retail" model="crm.lead.category">
+            <field name="name">Retail</field>
+            <field name="code">retail</field>
+        </record>
+        <record id="cat_referral" model="crm.lead.category">
+            <field name="name">Referral</field>
+            <field name="code">referral</field>
+        </record>
+
+        <!-- Default interest tags -->
+        <record id="interest_cloud" model="crm.lead.interest">
+            <field name="name">Cloud Services</field>
+        </record>
+        <record id="interest_ai" model="crm.lead.interest">
+            <field name="name">Artificial Intelligence</field>
+        </record>
+        <record id="interest_erp" model="crm.lead.interest">
+            <field name="name">ERP Implementation</field>
+        </record>
+
+    </data>
+
+    <!-- noupdate=0 (default): these records ARE updated on upgrade -->
+    <data>
+
+        <!-- Lead reference sequence: LEAD/2025/00001 -->
+        <record id="seq_crm_lead" model="ir.sequence">
+            <field name="name">CRM Lead Reference</field>
+            <field name="code">crm.lead</field>
+            <field name="prefix">LEAD/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+        </record>
+
+        <!-- Cron: auto-qualify leads with 3+ answered calls (runs daily) -->
+        <record id="cron_auto_qualify_leads" model="ir.cron">
+            <field name="name">CRM: Auto-qualify leads</field>
+            <field name="model_id" ref="model_crm_lead"/>
+            <field name="state">code</field>
+            <field name="code">model._cron_auto_qualify_leads()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="active" eval="True"/>
+        </record>
+
+    </data>
+</odoo>
