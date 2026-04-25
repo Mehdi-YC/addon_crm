@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="seq_crm_lead" model="ir.sequence">
-            <field name="name">CRM Lead Reference</field>
-            <field name="code">crm.lead</field>
+        <record id="seq_crm_custom_lead" model="ir.sequence">
+            <field name="name">CRM Custom Lead Reference</field>
+            <field name="code">crm.custom.lead</field>
             <field name="prefix">LEAD/%(year)s/</field>
             <field name="padding">5</field>
         </record>

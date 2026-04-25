@@ -8,7 +8,7 @@ _logger = logging.getLogger(__name__)
 
 
 class CrmLeadCategory(models.Model):
-    _name        = 'crm.lead.category'
+    _name        = 'crm.custom.lead.category'
     _description = 'Lead Category'
     _order       = 'name'
 
@@ -22,18 +22,18 @@ class CrmLeadCategory(models.Model):
 
 
 class CrmLeadInterest(models.Model):
-    _name        = 'crm.lead.interest'
+    _name        = 'crm.custom.lead.interest'
     _description = 'Interest Tag'
 
     name = fields.Char(required=True)
 
 
 class CrmLeadCall(models.Model):
-    _name        = 'crm.lead.call'
+    _name        = 'crm.custom.lead.call'
     _description = 'Call Log'
     _order       = 'date desc'
 
-    lead_id  = fields.Many2one('crm.lead', ondelete='cascade', required=True)
+    lead_id  = fields.Many2one('crm.custom.lead', ondelete='cascade', required=True)
     date     = fields.Datetime(default=fields.Datetime.now, required=True)
     duration = fields.Float(string='Duration (min)')
     answered = fields.Boolean()
@@ -41,7 +41,7 @@ class CrmLeadCall(models.Model):
 
 
 class CrmLead(models.Model):
-    _name        = 'crm.lead'
+    _name        = 'crm.custom.lead'
     _description = 'Lead'
     _inherit     = ['mail.thread', 'mail.activity.mixin']
     _order       = 'create_date desc'
@@ -62,7 +62,7 @@ class CrmLead(models.Model):
     website = fields.Char()
 
     # ── Classification ────────────────────────────────────────────────────────
-    category_id = fields.Many2one('crm.lead.category', string='Category')
+    category_id = fields.Many2one('crm.custom.lead.category', string='Category')
     source      = fields.Selection([
         ('api',      'API Import'),
         ('manual',   'Manual'),
@@ -83,12 +83,12 @@ class CrmLead(models.Model):
     notes            = fields.Html(string='Internal Notes')
 
     # ── Calls tab ─────────────────────────────────────────────────────────────
-    call_ids       = fields.One2many('crm.lead.call', 'lead_id', string='Calls')
+    call_ids       = fields.One2many('crm.custom.lead.call', 'lead_id', string='Calls')
     call_count     = fields.Integer(compute='_compute_call_count', store=True)
     answered_count = fields.Integer(compute='_compute_call_count', store=True)
 
     # ── Interests tab ─────────────────────────────────────────────────────────
-    interest_ids   = fields.Many2many('crm.lead.interest', string='Interests',
+    interest_ids   = fields.Many2many('crm.custom.lead.interest', string='Interests',
                                       relation='crm_lead_interest_rel',
                                       column1='lead_id', column2='interest_id')
     interest_notes = fields.Text(string='Interest Notes')
@@ -119,7 +119,7 @@ class CrmLead(models.Model):
     def create(self, vals_list):
         for vals in vals_list:
             if vals.get('ref', 'New') == 'New':
-                vals['ref'] = self.env['ir.sequence'].next_by_code('crm.lead') or 'New'
+                vals['ref'] = self.env['ir.sequence'].next_by_code('crm.custom.lead') or 'New'
         return super().create(vals_list)
 
     def unlink(self):

@@ -30,13 +30,13 @@ class BulkCreateWizard(models.TransientModel):
                 'expected_revenue': revenue,
             })
 
-        created = self.env['crm.lead'].create(leads)
+        created = self.env['crm.custom.lead'].create(leads)
 
         # Close wizard and show the new records
         return {
             'type':      'ir.actions.act_window',
             'name':      'New Leads',
-            'res_model': 'crm.lead',
+            'res_model': 'crm.custom.lead',
             'view_mode': 'list,form',
             'domain':    [('id', 'in', created.ids)],
             'target':    'current',

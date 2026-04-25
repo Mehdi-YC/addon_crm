@@ -3,9 +3,9 @@
 <data>
 
     <!-- LIST VIEW -->
-    <record id="crm_lead_list" model="ir.ui.view">
-        <field name="name">crm.lead.list</field>
-        <field name="model">crm.lead</field>
+    <record id="crm_custom_lead_list" model="ir.ui.view">
+        <field name="name">crm.custom.lead.list</field>
+        <field name="model">crm.custom.lead</field>
         <field name="arch" type="xml">
             <list decoration-success="state == 'won'"
                   decoration-danger="state == 'lost'"
@@ -32,9 +32,9 @@
     </record>
 
     <!-- SEARCH VIEW -->
-    <record id="crm_lead_search" model="ir.ui.view">
-        <field name="name">crm.lead.search</field>
-        <field name="model">crm.lead</field>
+    <record id="crm_custom_lead_search" model="ir.ui.view">
+        <field name="name">crm.custom.lead.search</field>
+        <field name="model">crm.custom.lead</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name"/>
@@ -60,17 +60,17 @@
     <!-- SERVER ACTION: bulk qualify from list Action menu -->
     <record id="action_server_bulk_qualify" model="ir.actions.server">
         <field name="name">Mark as Qualified</field>
-        <field name="model_id" ref="crm_minimal.model_crm_lead"/>
-        <field name="binding_model_id" ref="crm_minimal.model_crm_lead"/>
+        <field name="model_id" ref="crm_minimal.model_crm_custom_lead"/>
+        <field name="binding_model_id" ref="crm_minimal.model_crm_custom_lead"/>
         <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">records.action_bulk_qualify()</field>
     </record>
 
     <!-- WINDOW ACTIONS -->
-    <record id="action_crm_lead" model="ir.actions.act_window">
+    <record id="action_crm_custom_lead" model="ir.actions.act_window">
         <field name="name">Leads</field>
-        <field name="res_model">crm.lead</field>
+        <field name="res_model">crm.custom.lead</field>
         <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -88,8 +88,8 @@
 
     <!-- MENUS -->
     <menuitem id="menu_crm_root"  name="CRM Minimal" sequence="10"/>
-    <menuitem id="menu_crm_leads" name="Leads"       parent="menu_crm_root" action="action_crm_lead"           sequence="10"/>
-    <menuitem id="menu_crm_bulk"  name="Bulk Create" parent="menu_crm_root" action="action_bulk_create_wizard"  sequence="20"/>
+    <menuitem id="menu_crm_leads" name="Leads"       parent="menu_crm_root" action="action_crm_custom_lead"      sequence="10"/>
+    <menuitem id="menu_crm_bulk"  name="Bulk Create" parent="menu_crm_root" action="action_bulk_create_wizard"   sequence="20"/>
 
 </data>
 </odoo>

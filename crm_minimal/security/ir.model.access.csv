@@ -1,6 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_crm_lead,crm.lead,crm_minimal.model_crm_lead,base.group_user,1,1,1,1
-access_crm_lead_call,crm.lead.call,crm_minimal.model_crm_lead_call,base.group_user,1,1,1,1
-access_crm_lead_category,crm.lead.category,crm_minimal.model_crm_lead_category,base.group_user,1,1,1,1
-access_crm_lead_interest,crm.lead.interest,crm_minimal.model_crm_lead_interest,base.group_user,1,1,1,1
+access_crm_custom_lead,crm.custom.lead,crm_minimal.model_crm_custom_lead,base.group_user,1,1,1,1
+access_crm_custom_lead_call,crm.custom.lead.call,crm_minimal.model_crm_custom_lead_call,base.group_user,1,1,1,1
+access_crm_custom_lead_category,crm.custom.lead.category,crm_minimal.model_crm_custom_lead_category,base.group_user,1,1,1,1
+access_crm_custom_lead_interest,crm.custom.lead.interest,crm_minimal.model_crm_custom_lead_interest,base.group_user,1,1,1,1
 access_crm_bulk_wizard,crm.bulk.wizard,crm_minimal.model_crm_bulk_create_wizard,base.group_user,1,1,1,1
