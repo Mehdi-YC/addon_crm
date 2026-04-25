@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <!-- LIST VIEW -->
+    <record id="crm_lead_list" model="ir.ui.view">
+        <field name="name">crm.lead.list</field>
+        <field name="model">crm.lead</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'won'"
+                  decoration-danger="state == 'lost'"
+                  decoration-muted="state == 'lost'">
+                <field name="ref" optional="show"/>
+                <field name="name"/>
+                <field name="partner_id" optional="show"/>
+                <field name="phone" optional="show"/>
+                <field name="email" optional="show"/>
+                <field name="category_id" optional="show"/>
+                <field name="source" optional="show"/>
+                <field name="expected_revenue"/>
+                <field name="call_count" string="Calls" optional="show"/>
+                <field name="answered_count" string="Answered" optional="show"/>
+                <field name="user_id" optional="show"/>
+                <field name="state" widget="badge"
+                       decoration-warning="state == 'new'"
+                       decoration-info="state == 'qualified'"
+                       decoration-success="state == 'won'"
+                       decoration-danger="state == 'lost'"/>
+                <field name="activity_ids" widget="list_activity"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW -->
+    <record id="crm_lead_search" model="ir.ui.view">
+        <field name="name">crm.lead.search</field>
+        <field name="model">crm.lead</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="ref" string="Reference"/>
+                <field name="partner_id"/>
+                <field name="category_id"/>
+                <field name="user_id"/>
+                <filter name="my_leads"         string="My Leads"   domain="[('user_id','=',uid)]"/>
+                <filter name="filter_new"       string="New"        domain="[('state','=','new')]"/>
+                <filter name="filter_qualified" string="Qualified"  domain="[('state','=','qualified')]"/>
+                <filter name="filter_won"       string="Won"        domain="[('state','=','won')]"/>
+                <filter name="filter_lost"      string="Lost"       domain="[('state','=','lost')]"/>
+                <separator/>
+                <filter name="filter_api"       string="From API"   domain="[('source','=','api')]"/>
+                <separator/>
+                <filter name="group_state"    string="Status"      context="{'group_by': 'state'}"/>
+                <filter name="group_category" string="Category"    context="{'group_by': 'category_id'}"/>
+                <filter name="group_user"     string="Salesperson" context="{'group_by': 'user_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- SERVER ACTION: bulk qualify from list Action menu -->
+    <record id="action_server_bulk_qualify" model="ir.actions.server">
+        <field name="name">Mark as Qualified</field>
+        <field name="model_id" ref="crm_minimal.model_crm_lead"/>
+        <field name="binding_model_id" ref="crm_minimal.model_crm_lead"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_bulk_qualify()</field>
+    </record>
+
+    <!-- WINDOW ACTIONS -->
+    <record id="action_crm_lead" model="ir.actions.act_window">
+        <field name="name">Leads</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No leads yet — use Bulk Create to generate some!
+            </p>
+        </field>
+    </record>
+
+    <record id="action_bulk_create_wizard" model="ir.actions.act_window">
+        <field name="name">Bulk Create Leads</field>
+        <field name="res_model">crm.bulk.create.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- MENUS -->
+    <menuitem id="menu_crm_root"  name="CRM Minimal" sequence="10"/>
+    <menuitem id="menu_crm_leads" name="Leads"       parent="menu_crm_root" action="action_crm_lead"           sequence="10"/>
+    <menuitem id="menu_crm_bulk"  name="Bulk Create" parent="menu_crm_root" action="action_bulk_create_wizard"  sequence="20"/>
+
+</data>
+</odoo>
