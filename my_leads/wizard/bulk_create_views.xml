@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+
+    <record id="my_lead_bulk_wizard_form" model="ir.ui.view">
+        <field name="name">my.lead.bulk.wizard.form</field>
+        <field name="model">my.lead.bulk.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Bulk Create Leads">
+                <sheet>
+                    <group>
+                        <field name="keyword" placeholder="e.g. Algeria, Q1, Campaign..."/>
+                    </group>
+                    <p class="text-muted">
+                        Creates 2 leads with random names, phones, emails and revenues.
+                        The keyword will appear in both lead names.
+                    </p>
+                </sheet>
+                <footer>
+                    <button name="action_create" string="Create 2 Leads"
+                            type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</data>
+</odoo>

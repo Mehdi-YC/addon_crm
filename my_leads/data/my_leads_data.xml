@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="seq_my_lead" model="ir.sequence">
+            <field name="name">My Lead Reference</field>
+            <field name="code">my.lead</field>
+            <field name="prefix">LEAD/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</odoo>
