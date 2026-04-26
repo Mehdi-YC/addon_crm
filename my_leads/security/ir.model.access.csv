@@ -1,6 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_my_lead,my.lead,my_leads.model_my_lead,base.group_user,1,1,1,1
-access_my_lead_call,my.lead.call,my_leads.model_my_lead_call,base.group_user,1,1,1,1
-access_my_lead_category,my.lead.category,my_leads.model_my_lead_category,base.group_user,1,1,1,1
-access_my_lead_interest,my.lead.interest,my_leads.model_my_lead_interest,base.group_user,1,1,1,1
 access_my_lead_bulk_wizard,my.lead.bulk.wizard,my_leads.model_my_lead_bulk_wizard,base.group_user,1,1,1,1

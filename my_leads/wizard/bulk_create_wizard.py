@@ -1,6 +1,5 @@
 import random
 from odoo import fields, models
-from odoo.exceptions import UserError
 
 _FIRST = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Sigma', 'Nova', 'Apex', 'Zeta']
 _LAST  = ['Corp', 'Tech', 'Group', 'Lab', 'Hub', 'Works', 'Systems', 'DZ']
@@ -20,12 +19,10 @@ class MyLeadBulkWizard(models.TransientModel):
             first   = random.choice(_FIRST)
             last    = random.choice(_LAST)
             phone   = random.choice(_PHONE) + str(random.randint(1000000, 9999999))
-            revenue = random.randint(1, 200) * 1000
             leads.append({
-                'name':             f'{self.keyword} — {first} {last}',
-                'phone':            phone,
-                'email':            f'{first.lower()}.{last.lower()}@example.com',
-                'expected_revenue': revenue,
+                'name':  f'{self.keyword} — {first} {last}',
+                'phone': phone,
+                'email': f'{first.lower()}.{last.lower()}@example.com',
             })
 
         created = self.env['my.lead'].create(leads)
