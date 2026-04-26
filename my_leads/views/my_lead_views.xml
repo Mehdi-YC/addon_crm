@@ -12,6 +12,13 @@
         <list decoration-success="state == 'won'"
               decoration-danger="state == 'lost'"
               decoration-muted="state == 'lost'">
+            <control>
+                <create string="New"/>
+                <button string="Bulk Create"
+                        name="action_open_bulk_create"
+                        type="object"
+                        class="btn-secondary"/>
+            </control>
             <field name="name"/>
             <field name="store_id" optional="show"/>
             <field name="phone" optional="show"/>
@@ -44,8 +51,6 @@
     <field name="model">my.lead</field>
     <field name="arch" type="xml">
         <form>
-
-            <!-- Status bar (top pipeline line) -->
             <header>
                 <button name="action_qualify"  string="Qualify"     type="object" class="oe_highlight" invisible="state != 'new'"/>
                 <button name="action_proposal" string="Proposition" type="object" class="oe_highlight" invisible="state != 'qualified'"/>
@@ -57,7 +62,6 @@
             </header>
 
             <sheet>
-                <!-- ── Tab 1: Main Info ── -->
                 <notebook>
 
                     <page string="Main Info" name="main">
@@ -82,46 +86,35 @@
                         </group>
                     </page>
 
-                    <!-- ── Tab 2: Calls ── -->
                     <page string="Calls" name="calls">
-
                         <group string="Call 1">
                             <field name="call1_answered"/>
                             <field name="call1_date"/>
-                            <field name="call1_observation" nolabel="1"
-                                   placeholder="Observation..."/>
+                            <field name="call1_observation" nolabel="1" placeholder="Observation..."/>
                         </group>
-
                         <group string="Call 2">
                             <field name="call2_answered"/>
                             <field name="call2_date"/>
-                            <field name="call2_observation" nolabel="1"
-                                   placeholder="Observation..."/>
+                            <field name="call2_observation" nolabel="1" placeholder="Observation..."/>
                         </group>
-
                         <group string="Call 3">
                             <field name="call3_answered"/>
                             <field name="call3_date"/>
-                            <field name="call3_observation" nolabel="1"
-                                   placeholder="Observation..."/>
+                            <field name="call3_observation" nolabel="1" placeholder="Observation..."/>
                         </group>
-
                     </page>
 
-                    <!-- ── Tab 3: Final ── -->
                     <page string="Final" name="final">
                         <group>
                             <field name="accepted"/>
                             <field name="mail_sent"/>
                         </group>
-                        <field name="final_observation" nolabel="1"
-                               placeholder="Final observation..."/>
+                        <field name="final_observation" nolabel="1" placeholder="Final observation..."/>
                     </page>
 
                 </notebook>
             </sheet>
 
-            <!-- Chatter + activities panel (right side) -->
             <chatter/>
 
         </form>
@@ -148,7 +141,7 @@
             <filter name="filter_mail_sent" string="Mail Sent"  domain="[('mail_sent','=',True)]"/>
             <filter name="filter_whatsapp"  string="Has WhatsApp" domain="[('has_whatsapp','=',True)]"/>
             <separator/>
-            <filter name="group_state"  string="Status"  context="{'group_by': 'state'}"/>
+            <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
         </search>
     </field>
 </record>
@@ -188,7 +181,7 @@
     <field name="view_mode">list,form</field>
     <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
-            No leads yet. Use Actions → Bulk Create to generate some!
+            No leads yet. Click Bulk Create to generate some!
         </p>
     </field>
 </record>
@@ -196,8 +189,8 @@
 <!-- ══════════════════════════════════════════════════════
      MENUS
 ══════════════════════════════════════════════════════ -->
-<menuitem id="menu_my_leads_root" name="My Leads"  sequence="10"/>
-<menuitem id="menu_my_leads_list" name="Leads"     parent="menu_my_leads_root"
+<menuitem id="menu_my_leads_root" name="My Leads" sequence="10"/>
+<menuitem id="menu_my_leads_list" name="Leads"    parent="menu_my_leads_root"
           action="action_my_lead" sequence="10"/>
 
 </data>
