@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
 <data>
 
@@ -9,36 +9,43 @@
     <field name="name">my.lead.list</field>
     <field name="model">my.lead</field>
     <field name="arch" type="xml">
-        <list decoration-success="state == 'won'"
-              decoration-danger="state == 'lost'"
-              decoration-muted="state == 'lost'">
+        <list
+                    decoration-success="state == 'won'"
+                    decoration-danger="state == 'lost'"
+                    decoration-muted="state == 'lost'"
+                >
             <control>
-                <create string="New"/>
-                <button string="Bulk Create"
-                        name="action_open_bulk_create"
-                        type="object"
-                        class="btn-secondary"/>
+                <create string="New" />
+                <button
+                            string="Bulk Create"
+                            name="action_open_bulk_create"
+                            type="object"
+                            class="btn-secondary"
+                        />
             </control>
-            <field name="name"/>
-            <field name="store_id" optional="show"/>
-            <field name="phone" optional="show"/>
-            <field name="website" optional="show"/>
-            <field name="is_official" optional="show"/>
-            <field name="has_whatsapp" optional="show"/>
-            <field name="has_viber" optional="show"/>
-            <field name="has_telegram" optional="show"/>
-            <field name="call1_answered" string="Call 1" optional="show"/>
-            <field name="call2_answered" string="Call 2" optional="show"/>
-            <field name="call3_answered" string="Call 3" optional="show"/>
-            <field name="accepted" optional="show"/>
-            <field name="mail_sent" optional="show"/>
-            <field name="state" widget="badge"
-                   decoration-warning="state == 'new'"
-                   decoration-info="state == 'qualified'"
-                   decoration-primary="state == 'proposal'"
-                   decoration-success="state == 'won'"
-                   decoration-danger="state == 'lost'"/>
-            <field name="activity_ids" widget="list_activity"/>
+            <field name="name" />
+            <field name="store_id" optional="show" />
+            <field name="phone" optional="show" />
+            <field name="website" optional="show" />
+            <field name="is_official" optional="show" />
+            <field name="has_whatsapp" optional="show" />
+            <field name="has_viber" optional="show" />
+            <field name="has_telegram" optional="show" />
+            <field name="call1_answered" string="Call 1" optional="show" />
+            <field name="call2_answered" string="Call 2" optional="show" />
+            <field name="call3_answered" string="Call 3" optional="show" />
+            <field name="accepted" optional="show" />
+            <field name="mail_sent" optional="show" />
+            <field
+                        name="state"
+                        widget="badge"
+                        decoration-warning="state == 'new'"
+                        decoration-info="state == 'qualified'"
+                        decoration-primary="state == 'proposal'"
+                        decoration-success="state == 'won'"
+                        decoration-danger="state == 'lost'"
+                    />
+            <field name="activity_ids" widget="list_activity" />
         </list>
     </field>
 </record>
@@ -52,13 +59,43 @@
     <field name="arch" type="xml">
         <form>
             <header>
-                <button name="action_qualify"  string="Qualify"     type="object" class="oe_highlight" invisible="state != 'new'"/>
-                <button name="action_proposal" string="Proposition" type="object" class="oe_highlight" invisible="state != 'qualified'"/>
-                <button name="action_won"      string="Won"         type="object" invisible="state in ['won','lost']"/>
-                <button name="action_lost"     string="Lost"        type="object" invisible="state in ['won','lost']"/>
-                <button name="action_reset"    string="Reopen"      type="object" invisible="state != 'lost'"/>
-                <field name="state" widget="statusbar"
-                       statusbar_visible="new,qualified,proposal,won"/>
+                <button
+                            name="action_qualify"
+                            string="Qualify"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state != 'new'"
+                        />
+                <button
+                            name="action_proposal"
+                            string="Proposition"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state != 'qualified'"
+                        />
+                <button
+                            name="action_won"
+                            string="Won"
+                            type="object"
+                            invisible="state in ['won','lost']"
+                        />
+                <button
+                            name="action_lost"
+                            string="Lost"
+                            type="object"
+                            invisible="state in ['won','lost']"
+                        />
+                <button
+                            name="action_reset"
+                            string="Reopen"
+                            type="object"
+                            invisible="state != 'lost'"
+                        />
+                <field
+                            name="state"
+                            widget="statusbar"
+                            statusbar_visible="new,qualified,proposal,won"
+                        />
             </header>
 
             <sheet>
@@ -67,55 +104,71 @@
                     <page string="Main Info" name="main">
                         <group>
                             <group string="Identity">
-                                <field name="name"/>
-                                <field name="store_id"/>
-                                <field name="slug"/>
-                                <field name="announcement_id"/>
-                                <field name="is_official"/>
+                                <field name="name" />
+                                <field name="store_id" />
+                                <field name="slug" />
+                                <field name="announcement_id" />
+                                <field name="is_official" />
                             </group>
                             <group string="Contact">
-                                <field name="phone" widget="phone"/>
-                                <field name="website" widget="url"/>
-                                <field name="image_url"/>
+                                <field name="phone" widget="phone" />
+                                <field name="website" widget="url" />
+                                <field name="image_url" />
                             </group>
                         </group>
                         <group string="Messaging">
-                            <field name="has_whatsapp"/>
-                            <field name="has_viber"/>
-                            <field name="has_telegram"/>
+                            <field name="has_whatsapp" />
+                            <field name="has_viber" />
+                            <field name="has_telegram" />
                         </group>
                     </page>
 
                     <page string="Calls" name="calls">
                         <group string="Call 1">
-                            <field name="call1_answered"/>
-                            <field name="call1_date"/>
-                            <field name="call1_observation" nolabel="1" placeholder="Observation..."/>
+                            <field name="call1_answered" />
+                            <field name="call1_date" />
+                            <field
+                                        name="call1_observation"
+                                        nolabel="1"
+                                        placeholder="Observation..."
+                                    />
                         </group>
                         <group string="Call 2">
-                            <field name="call2_answered"/>
-                            <field name="call2_date"/>
-                            <field name="call2_observation" nolabel="1" placeholder="Observation..."/>
+                            <field name="call2_answered" />
+                            <field name="call2_date" />
+                            <field
+                                        name="call2_observation"
+                                        nolabel="1"
+                                        placeholder="Observation..."
+                                    />
                         </group>
                         <group string="Call 3">
-                            <field name="call3_answered"/>
-                            <field name="call3_date"/>
-                            <field name="call3_observation" nolabel="1" placeholder="Observation..."/>
+                            <field name="call3_answered" />
+                            <field name="call3_date" />
+                            <field
+                                        name="call3_observation"
+                                        nolabel="1"
+                                        placeholder="Observation..."
+                                    />
                         </group>
                     </page>
 
                     <page string="Final" name="final">
                         <group>
-                            <field name="accepted"/>
-                            <field name="mail_sent"/>
+                            <field name="accepted" />
+                            <field name="mail_sent" />
                         </group>
-                        <field name="final_observation" nolabel="1" placeholder="Final observation..."/>
+                        <field
+                                    name="final_observation"
+                                    nolabel="1"
+                                    placeholder="Final observation..."
+                                />
                     </page>
 
                 </notebook>
             </sheet>
 
-            <chatter/>
+            <chatter />
 
         </form>
     </field>
@@ -129,19 +182,51 @@
     <field name="model">my.lead</field>
     <field name="arch" type="xml">
         <search>
-            <field name="name"/>
-            <field name="store_id" string="Store ID"/>
-            <field name="phone"/>
-            <filter name="filter_new"       string="New"        domain="[('state','=','new')]"/>
-            <filter name="filter_qualified" string="Qualified"  domain="[('state','=','qualified')]"/>
-            <filter name="filter_won"       string="Won"        domain="[('state','=','won')]"/>
-            <filter name="filter_lost"      string="Lost"       domain="[('state','=','lost')]"/>
-            <separator/>
-            <filter name="filter_accepted"  string="Accepted"   domain="[('accepted','=',True)]"/>
-            <filter name="filter_mail_sent" string="Mail Sent"  domain="[('mail_sent','=',True)]"/>
-            <filter name="filter_whatsapp"  string="Has WhatsApp" domain="[('has_whatsapp','=',True)]"/>
-            <separator/>
-            <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+            <field name="name" />
+            <field name="store_id" string="Store ID" />
+            <field name="phone" />
+            <filter
+                        name="filter_new"
+                        string="New"
+                        domain="[('state','=','new')]"
+                    />
+            <filter
+                        name="filter_qualified"
+                        string="Qualified"
+                        domain="[('state','=','qualified')]"
+                    />
+            <filter
+                        name="filter_won"
+                        string="Won"
+                        domain="[('state','=','won')]"
+                    />
+            <filter
+                        name="filter_lost"
+                        string="Lost"
+                        domain="[('state','=','lost')]"
+                    />
+            <separator />
+            <filter
+                        name="filter_accepted"
+                        string="Accepted"
+                        domain="[('accepted','=',True)]"
+                    />
+            <filter
+                        name="filter_mail_sent"
+                        string="Mail Sent"
+                        domain="[('mail_sent','=',True)]"
+                    />
+            <filter
+                        name="filter_whatsapp"
+                        string="Has WhatsApp"
+                        domain="[('has_whatsapp','=',True)]"
+                    />
+            <separator />
+            <filter
+                        name="group_state"
+                        string="Status"
+                        context="{'group_by': 'state'}"
+                    />
         </search>
     </field>
 </record>
@@ -156,7 +241,10 @@
         <form string="Bulk Create Leads">
             <sheet>
                 <group>
-                    <field name="keyword" placeholder="e.g. Algiers, Q1, Campaign..."/>
+                    <field
+                                name="keyword"
+                                placeholder="e.g. Algiers, Q1, Campaign..."
+                            />
                 </group>
                 <p class="text-muted">
                     Creates 2 leads with random names, phones and emails.
@@ -164,9 +252,17 @@
                 </p>
             </sheet>
             <footer>
-                <button name="action_create" string="Create 2 Leads"
-                        type="object" class="btn-primary"/>
-                <button string="Cancel" class="btn-secondary" special="cancel"/>
+                <button
+                            name="action_create"
+                            string="Create 2 Leads"
+                            type="object"
+                            class="btn-primary"
+                        />
+                <button
+                            string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"
+                        />
             </footer>
         </form>
     </field>
@@ -186,12 +282,33 @@
     </field>
 </record>
 
+
+<record id="action_bulk_create_wizard" model="ir.actions.act_window">
+    <field name="name">Bulk Create Leads</field>
+    <field name="res_model">my.lead.bulk.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+
+
+
 <!-- ══════════════════════════════════════════════════════
      MENUS
 ══════════════════════════════════════════════════════ -->
-<menuitem id="menu_my_leads_root" name="My Leads" sequence="10"/>
-<menuitem id="menu_my_leads_list" name="Leads"    parent="menu_my_leads_root"
-          action="action_my_lead" sequence="10"/>
-
+<menuitem id="menu_my_leads_root" name="My Leads" sequence="10" />
+<menuitem
+            id="menu_my_leads_list"
+            name="Leads"
+            parent="menu_my_leads_root"
+            action="action_my_lead"
+            sequence="10"
+        />
+<menuitem
+            id="menu_my_leads_bulk"
+            name="Bulk Create"
+            parent="menu_my_leads_root"
+            action="action_bulk_create_wizard"
+            sequence="20"
+        />
 </data>
 </odoo>
