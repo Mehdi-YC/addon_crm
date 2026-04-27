@@ -1,37 +1,134 @@
-import random
+import requests
 from odoo import fields, models
+from odoo.exceptions import UserError
 
-_FIRST = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Sigma', 'Nova', 'Apex', 'Zeta']
-_LAST  = ['Corp', 'Tech', 'Group', 'Lab', 'Hub', 'Works', 'Systems', 'DZ']
-_PHONE = ['055', '066', '077', '070', '033']
+GRAPHQL_URL = "https://api.ouedkniss.com/graphql"
+HEADERS = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
 
 
 class MyLeadBulkWizard(models.TransientModel):
-    _name        = 'my.lead.bulk.wizard'
-    _description = 'Bulk Create Leads'
+    _name = "my.lead.bulk.wizard"
+    _description = "Import from Ouedkniss"
 
-    keyword = fields.Char(string='Keyword', required=True,
-                          help='Both generated lead names will include this word.')
+    category_slug = fields.Char(
+        string="Category",
+        required=True,
+        default="immobilier",
+        help="e.g. immobilier, informatique, vehicules",
+    )
+    page = fields.Integer(string="Page", default=1)
+    count = fields.Integer(string="Count", default=20)
 
-    def action_create(self):
-        leads = []
-        for _ in range(2):
-            first   = random.choice(_FIRST)
-            last    = random.choice(_LAST)
-            phone   = random.choice(_PHONE) + str(random.randint(1000000, 9999999))
-            leads.append({
-                'name':  f'{self.keyword} — {first} {last}',
-                'phone': phone,
-                'email': f'{first.lower()}.{last.lower()}@example.com',
-            })
+    def _fetch_stores(self):
+        payload = {
+            "query": """
+                query SearchQuery($filter: SearchFilterInput) {
+                    search(filter: $filter) {
+                        announcements {
+                            data {
+                                id
+                                store {
+                                    id
+                                    name
+                                    slug
+                                    imageUrl
+                                    isOfficial
+                                }
+                            }
+                        }
+                    }
+                }
+            """,
+            "variables": {
+                "filter": {
+                    "categorySlug": self.category_slug,
+                    "origin": "STORE",
+                    "connected": False,
+                    "page": self.page,
+                    "count": self.count,
+                },
+            },
+        }
+        resp = requests.post(GRAPHQL_URL, json=payload, headers=HEADERS, timeout=15)
+        resp.raise_for_status()
+        announcements = (
+            resp.json()
+            .get("data", {})
+            .get("search", {})
+            .get("announcements", {})
+            .get("data", [])
+        )
+        # one announcement per store — keep first occurrence
+        store_map = {}
+        for ann in announcements:
+            store = ann.get("store")
+            if not store:
+                continue
+            sid = store["id"]
+            if sid not in store_map:
+                store_map[sid] = {
+                    "store_id": str(sid),
+                    "name": store.get("name"),
+                    "slug": store.get("slug"),
+                    "image_url": store.get("imageUrl"),
+                    "is_official": store.get("isOfficial", False),
+                    "announcement_id": str(ann["id"]),
+                }
+        return store_map
 
-        created = self.env['my.lead'].create(leads)
+    def _fetch_phone(self, announcement_id):
+        payload = {
+            "query": """
+                query UnhidePhone($id: ID!) {
+                    phones: announcementPhoneGet(id: $id) {
+                        phone
+                        hasWhatsapp
+                        hasTelegram
+                        hasViber
+                    }
+                }
+            """,
+            "variables": {"id": announcement_id},
+        }
+        try:
+            resp = requests.post(GRAPHQL_URL, json=payload, headers=HEADERS, timeout=10)
+            resp.raise_for_status()
+            phones = resp.json().get("data", {}).get("phones", [])
+            if phones:
+                return phones[0]
+        except Exception:
+            pass
+        return {}
 
+    def action_import(self):
+        store_map = self._fetch_stores()
+        if not store_map:
+            raise UserError(
+                f'No stores found for "{self.category_slug}" page {self.page}.'
+            )
+
+        vals_list = []
+        for store in store_map.values():
+            phone_data = self._fetch_phone(store["announcement_id"])
+            vals_list.append(
+                {
+                    **store,
+                    "phone": phone_data.get("phone"),
+                    "has_whatsapp": phone_data.get("hasWhatsapp", False),
+                    "has_telegram": phone_data.get("hasTelegram", False),
+                    "has_viber": phone_data.get("hasViber", False),
+                }
+            )
+
+        created = self.env["my.lead"].create(vals_list)
         return {
-            'type':      'ir.actions.act_window',
-            'name':      'New Leads',
-            'res_model': 'my.lead',
-            'view_mode': 'list,form',
-            'domain':    [('id', 'in', created.ids)],
-            'target':    'current',
+            "type": "ir.actions.act_window",
+            "name": f"Imported {len(created)} stores",
+            "res_model": "my.lead",
+            "view_mode": "list,form",
+            "domain": [("id", "in", created.ids)],
+            "target": "current",
         }

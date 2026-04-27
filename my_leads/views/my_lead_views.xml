@@ -238,33 +238,27 @@
     <field name="name">my.lead.bulk.wizard.form</field>
     <field name="model">my.lead.bulk.wizard</field>
     <field name="arch" type="xml">
-        <form string="Bulk Create Leads">
-            <sheet>
-                <group>
-                    <field
-                                name="keyword"
-                                placeholder="e.g. Algiers, Q1, Campaign..."
+    <form string="Import from Ouedkniss">
+        <sheet>
+            <group>
+                <field
+                                name="category_slug"
+                                placeholder="immobilier, informatique, vehicules..."
                             />
-                </group>
-                <p class="text-muted">
-                    Creates 2 leads with random names, phones and emails.
-                    The keyword will appear in both lead names.
-                </p>
-            </sheet>
-            <footer>
-                <button
-                            name="action_create"
-                            string="Create 2 Leads"
+                <field name="page" />
+                <field name="count" />
+            </group>
+        </sheet>
+        <footer>
+            <button
+                            name="action_import"
+                            string="Import Stores"
                             type="object"
                             class="btn-primary"
                         />
-                <button
-                            string="Cancel"
-                            class="btn-secondary"
-                            special="cancel"
-                        />
-            </footer>
-        </form>
+            <button string="Cancel" class="btn-secondary" special="cancel" />
+        </footer>
+    </form>
     </field>
 </record>
 
