@@ -1,6 +1,0 @@
-store_id,name,slug,is_official,announcement_id,website,phone,image_url,has_whatsapp,has_viber,has_telegram
-ST001,Premium Store,premium-store,true,ANN001,https://premiumstore.com,+212612345678,https://via.placeholder.com/150,true,true,false
-ST002,Good Store,good-store,true,ANN002,https://goodstore.com,+212612345679,https://via.placeholder.com/150,true,false,true
-ST003,Regular Store,regular-store,false,ANN003,https://regularstore.com,+212612345680,https://via.placeholder.com/150,false,true,true
-ST004,Small Store,small-store,false,ANN004,https://smallstore.com,+212612345681,https://via.placeholder.com/150,true,false,false
-ST005,Big Store,big-store,true,ANN005,https://bigstore.com,+212612345682,https://via.placeholder.com/150,true,true,true
